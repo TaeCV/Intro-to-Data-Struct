@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1631618095 source:c:\users\tae\desktop\data struct\grader\intro-to-data-struct\midterm\erase many from vector\main.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<vector>
+	"vector.h"
+	"student.h"
+
+1631617709 c:\users\tae\desktop\data struct\grader\intro-to-data-struct\midterm\erase many from vector\vector.h
+	<stdexcept>
+	<iostream>
+	<vector>
+
+1631617978 c:\users\tae\desktop\data struct\grader\intro-to-data-struct\midterm\erase many from vector\student.h
+
