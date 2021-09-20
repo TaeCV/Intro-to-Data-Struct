@@ -1,4 +1,3 @@
-#include <set>
 template <typename T>
 class vector {
 protected:
@@ -11,10 +10,8 @@ public:
     void unique() {
         //เขียนตรงนี้
         size_t c = 0;
-        std::set<T> s;
         for (int i = 0; i < mSize; ++i) {
-            if (s.find(mData[i]) == s.end()) {
-                s.insert(mData[i]);
+            if (i == mSize - 1 || mData[i] != mData[i + 1]) {
                 mData[c++] = mData[i];
             }
         }
