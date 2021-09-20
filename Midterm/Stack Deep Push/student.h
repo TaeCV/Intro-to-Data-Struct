@@ -4,19 +4,13 @@
 template <typename T>
 void CP::stack<T>::deep_push(size_t pos, const T &value) {
     //write your code here
-    T *data = new T[mSize + 1]();
-    for (int i = 0, c = 0; i < mSize + 1; ++i) {
-        if (!c && i == mSize - pos) {
-            *(data + i) = value;
-            c++;
-        } else {
-            *(data + i) = *(mData + i - c);
-        }
+    ensureCapacity(mSize + 1);
+    int i;
+    for (i = mSize; i > mSize - pos; --i) {
+        mData[i] = mData[i - 1];
     }
-    delete[] mData;
-    mData = data;
+    mData[i] = value;
     mSize++;
-    mCap = mSize;
 }
 
 #endif
