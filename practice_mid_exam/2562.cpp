@@ -44,7 +44,7 @@ public:
 
     void add_bidding(string user, string item, int price) {
         int n = items[item].second.size();
-        items[item].second.push({{-price, n}, user});
+        items[item].second.push({{price, -n}, user});
     }
 
     vector<pair<string, int>> close_auction(string item) {
@@ -52,7 +52,7 @@ public:
         vector<pair<string, int>> res;
         while (total_qty > 0 && !items[item].second.empty()) {
             string user = items[item].second.top().second;
-            int price = -items[item].second.top().first.first;
+            int price = items[item].second.top().first.first;
             if (ask_user_confirmation(user, item, price)) {
                 res.push_back({user, price});
                 total_qty--;
