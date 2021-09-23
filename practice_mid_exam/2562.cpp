@@ -52,7 +52,7 @@ public:
         vector<pair<string, int>> res;
         while (total_qty > 0 && !items[item].second.empty()) {
             string user = items[item].second.top().second;
-            int price = items[item].second.top().first.first;
+            int price = -items[item].second.top().first.first;
             if (ask_user_confirmation(user, item, price)) {
                 res.push_back({user, price});
                 total_qty--;
