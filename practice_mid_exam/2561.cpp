@@ -85,9 +85,28 @@ void push(cosnt T &element) {
 
 // 7
 bool insert(const T &val) {
+    if (find(val) != end())
+        return false;
+    int i;
+    while (i < mSize && mData[i] < val)
+        i++;
+    for (int j = i; j < mSize; j++) {
+        mData[j + 1] = mData[j];
+    }
+    mData[i] = val;
+    mSize++;
+    return true;
 }
 
 bool erase(const T &val) {
+    auto it = find(val);
+    if (it == end())
+        return false;
+    for (int i = it - begin(); i < mSize - 1; i++) {
+        mData[i] = mData[i + 1];
+    }
+    mSize--;
+    return true;
 }
 
 // 8
