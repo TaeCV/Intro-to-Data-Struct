@@ -131,8 +131,9 @@ public:
         int idx = buildings[building];
         while (building_queue[idx].front().second < get_time() - 7200) {
             string name = building_queue[idx].front().first;
-            if (name_checkin_record[idx].find(name) != name_checkin_record[idx].end() && name_checkin_record[idx][name] == building_queue[idx].front().second) {
-                name_checking_record[idx].erase(name);
+            auto it = name_checkin_record[idx].find(name);
+            if (it != name_checkin_record[idx].end() && it->second == building_queue[idx].front().second) {
+                name_checking_record[idx].erase(it);
             }
             building_queue[idx].pop();
         }
