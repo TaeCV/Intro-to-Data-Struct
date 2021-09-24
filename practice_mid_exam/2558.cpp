@@ -117,3 +117,46 @@ void make_unique() {
     mData = arr;
     mSize = c;
 }
+
+// 11
+class MusicLibrary {
+protected:
+    map<pair<string, string>, int> map_songs;
+    map<string, vector<int>> playlist;
+    vector<pair<MP3, pair<string, string>>> MP3_storage;
+    vector<int> freq;
+
+public:
+    void add_song(const MP3 &mp3, string artist, string title) {
+        map_songs[{artist, title}] = MP3_storage.size();
+        freq.push_beck(0);
+        MP3_storage.push_back({mp3, {artist, title}});
+    }
+
+    void add_to_playlist(string name, string artist, string title) {
+        playlist[name].push_back(map_songs[{artist, title}]);
+    }
+
+    vector<MP3> get_playlist_MP3(string name) {
+        vector<MP3> res;
+        for (auto &idx : playlist[name]) {
+            res.push_back(MP3_storage[idx].first);
+            freq[idx]++;
+        }
+        return res;
+    }
+
+    vector<pair<string, string>> get_most_played(int k) {
+        priority_queue<pair<int, int>> pq;
+        vector<pair<string, string>> res;
+        for (int i = 0; i < freq.size(); i++)
+            pq.push({freq[i], i});
+        while (k > 0 && !pq.empty()) {
+            int idx = pq.top().second;
+            res.push_back(MP3_storage[idx].second);
+            pq.pop();
+            k--;
+        }
+        return res;
+    }
+};
