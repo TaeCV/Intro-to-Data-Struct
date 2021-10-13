@@ -136,6 +136,11 @@ void insertAt(int k, const CP::queue<T> &q) {
         pop();
     }
     *this = newq;
+    int n = q.size();
+    ensureCapacity(n + mSize);
+    for (int i = mSize - 1; i >= k; --i) {
+        mData[(mFront + n + i) % mCap] = mData[(mFront + i) % mCap];
+    }
 }
 
 // 13

@@ -120,7 +120,7 @@ public:
             buildings[building] = building_queue.size();
         }
         int idx = buildings[building];
-        buildings[idx].push({name, get_time()});
+        building_queue[idx].push({name, get_time()});
         name_checkin_record[idx][name] = get_time();
     }
     void check_out(string building, string name) {

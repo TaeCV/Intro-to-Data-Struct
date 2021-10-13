@@ -120,8 +120,9 @@ public:
         info[{lastName, firstName}] = ID;
     }
     string getIDofPerson(string &firstName, string &lastName) {
-        if (info.find({lastName, firstName}) != info.end()) {
-            return info[{lastName, firstName}];
+        auto it = info.find({lastName, firstName});
+        if (it != info.end()) {
+            return it->second;
         }
         return "";
     }
@@ -149,19 +150,17 @@ void eraseAllWithValue(const T &x) {
 
 // 10
 void insertAt(int k, const std::vector<T> &v) {
-    mCap = mSize + v.size();
-    T *arr = new T[mCap]();
-    int c = 0;
-    for (int i = 0; i < k; i++) {
-        arr[c++] = mData[i];
+    queue<T> q;
+    while (k > 0 && !empty()) {
+        q.push(front());
+        pop();
+        k--;
     }
-    for (int i = 0; i < v.size(); i++) {
-        arr[c++] = v[i];
+    for (auto x : v)
+        q.push(x);
+    while (!empty()) {
+        q.push(front());
+        pop();
     }
-    for (int i = k; i < mSize; i++) {
-        arr[c++] = mData[i];
-    }
-    delete[] mData;
-    mData = arr;
-    mSize = c;
+    *this = q;
 }

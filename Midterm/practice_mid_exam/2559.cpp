@@ -46,17 +46,17 @@ map<int, int> get_h(const map<int, int> &f_x, const map<int, int> &g_f, const ma
 }
 
 // 6
-vecotr<int> get_intersect(const vector<int> &v1, const vector<int> &v2) {
+vector<int> get_intersect(const vector<int> &v1, const vector<int> &v2) {
     vector<int> result;
     auto it1 = v1.begin();
     auto it2 = v2.begin();
     while (it1 != v1.end() && it2 != v2.end()) {
         if (*it1 > *it2)
-            it2++;
-        else if (*it1 < *it2)
             it1++;
+        else if (*it1 < *it2)
+            it2++;
         else {
-            res.push(*it);
+            res.push(*it1);
             it1++;
             it2++;
         }
@@ -116,7 +116,7 @@ public:
 
     vector<pair<string, int>> books_by_author(string author) {
         vector<pair<string, int>> res;
-        auto it = books.find({author, ""});
+        auto it = books.lower_bound({author, ""});
         while (it != books.end() && it->first == author) {
             res.push_back(make_pair(it->first.second, stocks[it->second]));
             it++;
