@@ -121,23 +121,26 @@ namespace CP {
         }
 
         void erase(const T &v) {
-            //erase v from the heap (if exists)
-            //write your code here
-            for (int i = 0; i < mSize; ++i) {
+            // erase v from the heap (if exists)
+            bool found = false;
+            size_t i = 0;
+            while (i < mSize) {
                 if (mData[i] == v) {
-                    mData[i] = mData[mSize - 1];
-                    mSize--;
-                    if (i > 0 && mData[i] > mData[(i - 1) / 2]) {
-                        fixUp(i);
-                    } else {
-                        fixDown(i);
-                    }
+                    found = true;
+                    std::swap(mData[i], mData[mSize - 1]);
+                    break;
                 }
+                i++;
             }
+            if (!found)
+                return;
+            mSize--;
+            fixDown(i);
+            fixUp(i);
         }
 
         void check_and_print() {
-            //check HEAP
+            // check HEAP
             for (int i = 1; i < mSize; i++) {
                 int p = (i - 1) / 2;
                 if (mLess(mData[p], mData[i])) {
@@ -146,7 +149,7 @@ namespace CP {
                 }
             }
 
-            //print the heap
+            // print the heap
             while (!empty()) {
                 std::cout << top() << " ";
                 pop();
