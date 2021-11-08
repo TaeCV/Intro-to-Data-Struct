@@ -1,8 +1,7 @@
-#ifndef _CP_MAP_BST_INCLUDED_
-#define _CP_MAP_BST_INCLUDED_
-
 #include <iostream>
-//#pragma once
+#include <math.h>
+#include <string>
+#include <vector>
 
 namespace CP {
 
@@ -155,8 +154,6 @@ namespace CP {
             delete_all_nodes(r->right);
             delete r;
         }
-
-        int shallowest_leaf(node *n);
 
     public:
         //-------------- constructor & copy operator ----------
@@ -314,9 +311,76 @@ namespace CP {
             return checkInorder(r->right);
         }
 
-        int shallowest_leaf();
+        //---------------------------- tree traversal ------------------------
+        void print_key_preorder(node *r) {
+            if (r == NULL)
+                return;
+            std::cout << r->data.first << " ";
+            print_key_preorder(r->left);
+            print_key_preorder(r->right);
+        }
+
+        void print_key_inorder(node *r) {
+            if (r == NULL)
+                return;
+            print_key_inorder(r->left);
+            std::cout << r->data.first << " ";
+            print_key_inorder(r->right);
+        }
+
+        void print_key_postorder(node *r) {
+            if (r == NULL)
+                return;
+            print_key_postorder(r->left);
+            print_key_postorder(r->right);
+            std::cout << r->data.first << " ";
+        }
+
+        void print_key_preorder() {
+            print_key_preorder(mRoot);
+            std::cout << std::endl;
+        }
+        void print_key_inorder() {
+            print_key_inorder(mRoot);
+            std::cout << std::endl;
+        }
+        void print_key_postorder() {
+            print_key_postorder(mRoot);
+            std::cout << std::endl;
+        }
     };
 
 }
 
-#endif
+// you can add other function as well BUT CANNOT MODIFY MAIN nor map_bst class
+void insert_middle(int n, int m, CP::map_bst<int, int> &bst) {
+    if (m < -1)
+        return;
+    bst.insert({n, n});
+    insert_middle(n - pow(2, m), m - 1, bst);
+    insert_middle(n + pow(2, m), m - 1, bst);
+}
+
+void gen_best_bst(int n, CP::map_bst<int, int> &bst) {
+    // write your code here
+    // you can create additional function
+    // but you cannot modify main or the map_bst class
+    int f = log2(n + 1);
+    insert_middle(n / 2 + 1, f - 2, bst);
+    // this is the example code of adding 1..n to the bst in ascending order
+    // for (int i = 1; i <= n; i++) {
+    //     bst[i] = 100;
+    // }
+}
+
+int main() {
+    int k;
+    int n;
+    std::cin >> k;
+    n = (2 << k) - 1;
+    CP::map_bst<int, int> bst;
+    gen_best_bst(n, bst);
+    bst.print_key_preorder();
+    bst.print_key_inorder();
+    bst.print_key_postorder();
+}
