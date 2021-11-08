@@ -7,27 +7,34 @@ template <typename KeyT,
 CP::map_bst<KeyT, MappedT, CompareT> CP::map_bst<KeyT, MappedT, CompareT>::split(KeyT val) {
     // your code here
     CP::map_bst<KeyT, MappedT, CompareT> result;
-    node *n = mRoot, *tmp = NULL, *tmp2 = NULL;
-    bool isDone = false;
-    while (n && !isDone) {
-        if (n->data.first >= val) {
-            tmp2 = NULL;
-            if (tmp) {
-                tmp->left = n;
-                n->parent = tmp;
+    node *n = mRoot;
+    node *tmpRoot = NULL;
+    node *tmpResult = NULL;
+    mRoot = NULL;
+    result.mRoot = NULL;
+    while (n) {
+        if (mLess(n->data.first, val)) {
+            if (tmpRoot == NULL) {
+                mRoot = n;
+                mRoot->parent = NULL;
+            } else {
+                tmpRoot->right = n;
+                n->parent = tmpRoot;
             }
-            tmp = n;
-            n = n->left;
-        } else if (n->data.first < val) {
-            if (tmp2) {
-                tmp2->right = n;
-                n->parent = tmp2;
-            }
-            tmp2 = n;
+            tmpRoot = n;
             n = n->right;
-            if (n) {
-                result.mRoot = null;
+            tmpRoot->right = NULL;
+        } else {
+            if (!tmpResult) {
+                result.mRoot = n;
+                result.mRoot->parent = NULL;
+            } else {
+                tmpResult->left = n;
+                n->parent = tmpResult;
             }
+            tmpResult = n;
+            n = n->left;
+            tmpResult->left = NULL;
         }
     }
     return result;
