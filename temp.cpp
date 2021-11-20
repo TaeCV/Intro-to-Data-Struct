@@ -1,47 +1,34 @@
-#ifndef __STUDENT_H_
-#define __STUDENT_H_
 
-template <typename KeyT,
-          typename MappedT,
-          typename CompareT>
-CP::map_bst<KeyT, MappedT, CompareT> CP::map_bst<KeyT, MappedT, CompareT>::split(KeyT val) {
-    // your code here
-    CP::map_bst<KeyT, MappedT, CompareT> result;
-    node *now = mRoot;
-    node *nowOriginal = NULL;
-    mRoot = NULL;
-    node *nowSplit = NULL;
-    result.mRoot = NULL;
-    // printf("START");
-    while (true) {
-        if (now == NULL)
-            break;
-        if (mLess(now->data.first, val)) { // in original
-            if (nowOriginal == NULL) {
-                mRoot = now;
-                mRoot->parent = NULL;
-            } else {
-                nowOriginal->right = now;
-                now->parent = nowOriginal;
-            }
-            nowOriginal = now;
-            now = now->right;
-            nowOriginal->right = NULL;
-        } else { // in split
-            if (nowSplit == NULL) {
-                result.mRoot = now;
-                result.mRoot->parent = NULL;
-            } else {
-                nowSplit->left = now;
-                now->parent = nowSplit;
-            }
-            nowSplit = now;
-            now = now->left;
-            nowSplit->left = NULL;
-        }
-    }
-    // printf("END");
-    return result;
+void remove_colliding_key(const KeyT &m) {
+    size_t bi = hash_to_bucket(m);
+    mSize -= mBuckets[bi].size();
+    mBuckets[bi].clear();
 }
 
-#endif
+vector<size_t> min_hash_signature(set<int> A, vector<HasherT> hs) {
+    vector<size_t> ans(hs.size());
+
+    for (int i = 0; i < hs.size(); ++i) {
+        size_t mx = 0;
+        auto it = A.begin();
+        ans[i] = hs[i](*it);
+        ++it;
+        while (it != A.end()) {
+            if (hs[i](*it) > ans[i])
+                ans[i] = hs[i](*it);
+            ++it;
+        }
+    }
+}
+
+float min_hash_estimate(vector<size_t> as, vector<size_t> bs) {
+    map<size_t, int> m;
+    int dup = 0.0;
+    for (auto &x : as)
+        m[x]++;
+    for (auto &x : bs) {
+        if (m.find(x) != m.end())
+            dup += m[x];
+    }
+    return (dup + 0.0) / as.size();
+}

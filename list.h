@@ -161,17 +161,24 @@ namespace CP {
         }
 
         void print() {
-            std::cout << " Size = " << mSize << std::endl;
-            std::cout << " Header address = " << (mHeader) << " (prev = " << mHeader->prev << " next = " << mHeader->next << ")" << std::endl;
+            std::cout << "Size = " << mSize << std::endl;
             int i = 0;
             iterator before;
+            std::cout << "From FRONT to BACK: ";
             for (iterator it = begin(); it != end(); before = it, it++, i++) {
-                std::cout << "Node " << i << ": " << *it;
-                std::cout << " (prev = " << it.ptr->prev << ", I'm at " << it.ptr << ", next = " << it.ptr->next << ")" << std::endl;
+                std::cout << *it << " ";
             }
+            std::cout << std::endl
+                      << "From BACK to FRONT: ";
+            auto it = end();
+            while (it != begin()) {
+                --it;
+                std::cout << *it << " ";
+            }
+            std::cout << std::endl;
         }
 
-        CP::list<T> split(iterator it, size_t pos);
+        iterator reverse(iterator a, iterator b);
     };
 
 }
