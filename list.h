@@ -72,17 +72,14 @@ namespace CP {
         //-------------- constructor & copy operator ----------
 
         // copy constructor
-        list(const list<T> &a) : mHeader(new node()), mSize(0) {
-            node *ptr = a.mHeader->next;
-            for (size_t i = 0; i < a.size(); i++) {
-                push_back(ptr->data);
-                ptr++;
+        list(list<T> &a) : mHeader(new node()), mSize(0) {
+            for (iterator it = a.begin(); it != a.end(); it++) {
+                push_back(*it);
             }
         }
 
         // default constructor
-        list() : mHeader(new node()), mSize(0) {
-        }
+        list() : mHeader(new node()), mSize(0) {}
 
         // copy assignment operator using copy-and-swap idiom
         list<T> &operator=(list<T> other) {
@@ -161,24 +158,15 @@ namespace CP {
         }
 
         void print() {
-            std::cout << "Size = " << mSize << std::endl;
+            std::cout << " Size = " << mSize << std::endl;
+            std::cout << " Header address = " << (mHeader) << " (prev = " << mHeader->prev << " next = " << mHeader->next << ")" << std::endl;
             int i = 0;
             iterator before;
-            std::cout << "From FRONT to BACK: ";
             for (iterator it = begin(); it != end(); before = it, it++, i++) {
-                std::cout << *it << " ";
+                std::cout << "Node " << i << ": " << *it;
+                std::cout << " (prev = " << it.ptr->prev << ", I'm at " << it.ptr << ", next = " << it.ptr->next << ")" << std::endl;
             }
-            std::cout << std::endl
-                      << "From BACK to FRONT: ";
-            auto it = end();
-            while (it != begin()) {
-                --it;
-                std::cout << *it << " ";
-            }
-            std::cout << std::endl;
         }
-
-        iterator reverse(iterator a, iterator b);
     };
 
 }

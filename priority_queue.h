@@ -120,8 +120,6 @@ namespace CP {
             mSize--;
             fixDown(0);
         }
-
-        void change_value(size_t pos, const T &value);
     };
 
 }

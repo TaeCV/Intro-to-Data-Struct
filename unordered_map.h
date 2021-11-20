@@ -519,8 +519,6 @@ namespace CP {
                 }
             }
         }
-
-        size_t max_bucket_length();
     };
 
 }
