@@ -32,23 +32,25 @@
 //     }
 //     return (dup + 0.0) / as.size();
 // }
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 
-using namespace std;
+// using namespace std;
 
-int main() {
-    int a = 10;
-    a -= 5 + 1;
-    cout << a;
-}
+// int main() {
+//     int a = 10;
+//     a -= 5 + 1;
+//     cout << a;
+// }
 
-while(true){
-    int left_size = 0;
-    if(n->left) left_size = n->left.tSize;
-    if(k<left_size) n= n->left;
-    else if (k == left_size ) return iterator(n);
-    else {
-        k -= left_size +1;
-        n=n->right;
-    }
-}
+// while(true){
+//     int left_size = 0;
+//     if(n->left) left_size = n->left.tSize;
+//     if(k<left_size) n= n->left;
+//     else if (k == left_size ) return iterator(n);
+//     else {
+//         k -= left_size +1;
+//         n=n->right;
+//     }
+// }
+
+// hello!!!
