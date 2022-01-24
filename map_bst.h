@@ -311,6 +311,33 @@ namespace CP {
                 return false;
             return checkInorder(r->right);
         }
+
+        node *succ(KeyT v) {
+            node *p = mRoot, *tmp = NULL;
+            while (true) {
+                if (!p) {
+                    return tmp ? tmp : p;
+                }
+                int cmp = compare(p->data.first, v);
+                if (cmp == 0) {
+                    if (tmp)
+                        return tmp;
+                    p = p->right;
+                    while (p && p->left)
+                        p = p->left;
+                    return p;
+                } else if (cmp == 1) {
+                    tmp = p;
+                    p = p->left;
+                } else {
+                    p = p->right;
+                }
+            }
+        }
+
+        KeyT getValue(node *n) {
+            return n->data.first;
+        }
     };
 
 }
